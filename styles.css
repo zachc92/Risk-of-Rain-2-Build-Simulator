@@ -1,0 +1,203 @@
+/* ------------------------ */
+/* ----- general ---------- */
+/* ------------------------ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff;
+}
+
+h3:hover {
+    cursor: pointer;
+}
+
+/* ------------------------ */
+/* ----- header ----------- */
+/* ------------------------ */
+
+.header {
+    text-align: center;
+    background-position: center;
+    background-attachment: fixed;
+    height: 25vh;
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(/img/header.png);
+    display: block;
+}
+
+.header-box {
+    top: 50%;
+    transform: translate(0, 300%);
+    color: white;
+}
+
+
+/* ------------------------ */
+/* ----- char tab --------- */
+/* ------------------------ */
+
+.character-box {
+    margin-top: 1.25%;
+    padding: 10px;
+    text-align: center;
+    background: #e1e1e1;
+}
+
+.char-img {
+    border: 2px solid #a0b9ef;
+    border-radius: 50%;
+    width: 5%;
+    margin: auto 1.5%;
+    vertical-align: middle;
+    transition: 0.5s;
+}
+
+.char-img:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+/* ------------------------ */
+/* ----- build section ---- */
+/* ------------------------ */
+
+.build-section {
+    margin-top: 1.25%;
+    width: 100%;
+}
+
+.build-section div {
+    background-color: #e1e1e1;
+}
+
+.build-section h2 {
+    padding-top: 10px;
+    font-weight: 100;
+}
+
+.build-section h2:after {
+    display: block;
+    height: 1px;
+    background-color: #a0b9ef;
+    content: "";
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+/* ------------------------ */
+/* ----- items col -------- */
+/* ------------------------ */
+
+.col-items {
+    width: 74.5%;
+    float: left;
+}
+
+.col-items h2 {
+    text-align: center;
+}
+
+.item-rarities {
+    text-align: center;
+}
+
+.item-rarities h3 {
+    display: inline-block;
+    font-weight: 100;
+    margin: 10px 2.5%;
+}
+
+.item-breaker {
+    height: 1px;
+    background-color: #a0b9ef;
+    border: none;
+    margin: auto;
+}
+
+.common-items {
+    margin: 1% auto;
+    text-align: center;
+    display: block;
+}
+
+.uncommon-items {
+    margin: 1% auto;
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.item-card {
+    height: 300px;
+    width: 20%;
+    min-width: 218px;
+    display: block;
+    float: left;
+    margin: 2.5% 2.5%;
+    border: 1px solid #a0b9ef;
+    border-radius: 2%;
+    overflow: auto;
+    background: #fff !important;
+}
+
+.item-img {
+    border: 2px solid white;
+    border-radius: 50%;
+    height: 100%;
+}
+
+.card-img {
+    height: 30%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: 0.25s;
+    background-color: #a0b9ef !important;
+}
+
+.card-img img:hover {
+    transform: scale(0.9);
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.card-title {
+    height: 10%;
+    margin: 0px auto;
+    background-color: #e1e1e1 !important;
+    border-bottom: 1px solid #a0b9ef;
+    overflow: hidden;
+}
+
+.card-title h4 {
+    padding: 7px;
+}
+
+.card-desc {
+    height: 40%;
+    width: 80%;
+    margin: 10px auto;
+    background-color: inherit !important;
+}
+
+/* ------------------------ */
+/* ----- build col -------- */
+/* ------------------------ */
+
+.col-build {
+    width: 25%;
+    float: right;
+    position: absolute;
+    left: 75%;
+}
+
+.col-build h2 {
+    text-align: center;
+}
