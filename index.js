@@ -10,13 +10,124 @@ const equipItems = document.querySelector('.equip-items');
 
 const buildColumn = document.querySelector('.col-build');
 
-const build = {
-    apr: {
-            quantity: 0,
-            effect: ""
-        },
-    
-};
+const build = [
+    {apr: {
+        name: "Armor Piercing Rounds",
+        quantity: 0,
+        effect: "Deal an additional " + 20 + "% damage to bosses",
+        multiplier: 20
+    }},
+    {bf: {
+        name: "Bustling Fungus",
+        quantity: 0,
+        effect: ""
+    }},
+    {bof: {
+        name: "Bundle of Fireworks",
+        quantity: 0,
+        effect: ""
+    }},
+    {cb: {
+        name: "Crowbar",
+        quantity: 0,
+        effect: ""
+    }},
+    {cs: {
+        name: "Cautious Slug",
+        quantity: 0,
+        effect: ""
+    }},
+    {fc: {
+        name: "Focus Crystal",
+        quantity: 0,
+        effect: ""
+    }},
+    {fm: {
+        name: "Fresh Meat",
+        quantity: 0,
+        effect: ""
+    }},
+    {nrg: {
+        name: "Energy Drink",
+        quantity: 0,
+        effect: ""
+    }},
+    {gas: {
+        name: "Gasoline",
+        quantity: 0,
+        effect: ""
+    }},
+    {lmg: {
+        name: "Lens-Maker's Glasses",
+        quantity: 0,
+        effect: ""
+    }},
+    {med: {
+        name: "Medkit",
+        quantity: 0,
+        effect: ""
+    }},
+    {mt: {
+        name: "Monster Tooth",
+        quantity: 0,
+        effect: ""
+    }},
+    {pgh: {
+        name: "Paul's Goat Hoof",
+        quantity: 0,
+        effect: ""
+    }},
+    {psg: {
+        name: "Personal Shield Generator",
+        quantity: 0,
+        effect: ""
+    }},
+    {rap: {
+        name: "Repulsion Armor Plating",
+        quantity: 0,
+        effect: ""
+    }},
+    {rk: {
+        name: "Rusted Key",
+        quantity: 0,
+        effect: ""
+    }},
+    {sb: {
+        name: "Sticky Bomb",
+        quantity: 0,
+        effect: ""
+    }},
+    {sg: {
+        name: "Stun Grenade",
+        quantity: 0,
+        effect: ""
+    }},
+    {ss: {
+        name: "Soldier's Syringe",
+        quantity: 0,
+        effect: ""
+    }},
+    {tb: {
+        name: "Topaz Brooch",
+        quantity: 0,
+        effect: ""
+    }},
+    {tt: {
+        name: "Tougher Times",
+        quantity: 0,
+        effect: ""
+    }},
+    {ttd: {
+        name: "Tri-tip Dagger",
+        quantity: 0,
+        effect: ""
+    }},
+    {wb: {
+        name: "Warbanner",
+        quantity: 0,
+        effect: ""
+    }}  
+];
 
 navRarity = (e) => {
     if(e.target.innerHTML === 'Common') {
@@ -90,13 +201,22 @@ navRarity = (e) => {
     }
 };
 
+renderBuildList = () => {
+    console.log('rendering build list')
+}
+
 addToBuild = (e) => {
     const added = e.target.parentElement.parentElement.id;
-    console.log(added);
+    for(i = 0; i < build.length; i++) {
+        if(build[i][added] !== undefined) {
+        console.log(build[i][added]);
+        return;
+        }
+    }
+    renderBuildList();
 }
 
 buildBarState = () => {
-    console.log(window.scrollY);
     if(window.scrollY >= 375) {
         buildColumn.style.top = 0;
         buildColumn.style.position = "fixed";
