@@ -10,7 +10,7 @@ const equipItems = document.querySelector('.equip-items');
 
 const buildColumn = document.querySelector('.col-build');
 
-const build = [
+const items = [
     {apr: {
         name: "Armor Piercing Rounds",
         quantity: 0,
@@ -129,6 +129,13 @@ const build = [
     }}  
 ];
 
+const effects = {
+    atkspd: 100,
+    atkpwr: 100
+}
+
+const build = [];
+
 navRarity = (e) => {
     if(e.target.innerHTML === 'Common') {
         if(commonItems.classList.contains('hidden') == true) {
@@ -207,9 +214,10 @@ renderBuildList = () => {
 
 addToBuild = (e) => {
     const added = e.target.parentElement.parentElement.id;
-    for(i = 0; i < build.length; i++) {
-        if(build[i][added] !== undefined) {
-        console.log(build[i][added]);
+    for(i = 0; i < items.length; i++) {
+        if(items[i][added] !== undefined) {
+        items[i][added].quantity++;
+        
         return;
         }
     }

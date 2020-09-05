@@ -10,7 +10,7 @@
 
 html {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #fff;
+    background-color: #474c52;
 }
 
 h3:hover {
@@ -45,7 +45,7 @@ h3:hover {
     margin-top: 1.25%;
     padding: 10px;
     text-align: center;
-    background: #e1e1e1;
+    background: rgba(225,225,255,0.2);
 }
 
 .char-img {
@@ -72,7 +72,8 @@ h3:hover {
 }
 
 .build-section div {
-    background-color: #e1e1e1;
+    background-color: rgba(225,225,255,0.2);
+    color: white;
 }
 
 .build-section h2 {
@@ -144,8 +145,9 @@ h3:hover {
     margin: 2.5% 2.5%;
     border: 1px solid #a0b9ef;
     border-radius: 2%;
+    box-shadow: 1px 1px px 1.25px rgba(0,0,0,0.15);
     overflow: auto;
-    background: #fff !important;
+    background: rgba(225,225,255,0.2) !important;
 }
 
 .item-img {
@@ -171,7 +173,8 @@ h3:hover {
 .card-title {
     height: 10%;
     margin: 0px auto;
-    background-color: #e1e1e1 !important;
+    background-color: #425161 !important;
+    color: white;
     border-bottom: 1px solid #a0b9ef;
     overflow: hidden;
 }
@@ -184,7 +187,7 @@ h3:hover {
     height: 40%;
     width: 80%;
     margin: 10px auto;
-    background-color: inherit !important;
+    background-color: rgba(225,225,255,0) !important;
 }
 
 /* ------------------------ */
