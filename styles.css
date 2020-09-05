@@ -91,6 +91,18 @@ h3:hover {
     margin-top: 10px;
 }
 
+.normal {
+    color: white;
+}
+
+.out-of-combat {
+    color: lightgreen;
+}
+
+.on-kill {
+    color: red;
+}
+
 /* ------------------------ */
 /* ----- items col -------- */
 /* ------------------------ */
@@ -203,4 +215,32 @@ h3:hover {
 
 .col-build h2 {
     text-align: center;
+}
+
+#level-bar {
+    width: 100%;
+    display: inline;
+}
+
+.level-display {
+    float: left;
+    width: 80%;
+}
+
+.level-down {
+    float: right;
+    width: 10%;
+}
+
+.level-up {
+    float: right;
+    width: 10%;
+}
+
+#health-bar {
+    background-color: lightgreen !important;
+}
+
+#shield-bar {
+    background-color: inherit;
 }

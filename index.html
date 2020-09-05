@@ -15,16 +15,16 @@
 
     <section class="character-box">
         <div class="row">
-            <img src="./img/acrid.png" alt="Acrid" class="char-img">
-            <img src="./img/artificier.png" alt="Artificier" class="char-img">
-            <img src="./img/captain.png" alt="Captain" class="char-img">
-            <img src="./img/commando.png" alt="Commando" class="char-img">
-            <img src="./img/engineer.png" alt="Engineer" class="char-img">
-            <img src="./img/huntress.png" alt="Huntress" class="char-img">
-            <img src="./img/loader.png" alt="Loader" class="char-img">
-            <img src="./img/mercenary.png" alt="Mercenary" class="char-img">
-            <img src="./img/mult.png" alt="MUL-T" class="char-img">
-            <img src="./img/rex.png" alt="REX" class="char-img">
+            <img src="./img/acrid.png" alt="Acrid" class="char-img" id="Acrid">
+            <img src="./img/artificier.png" alt="Artificier" class="char-img" id="Artificer">
+            <img src="./img/captain.png" alt="Captain" class="char-img" id="Captain">
+            <img src="./img/commando.png" alt="Commando" class="char-img" id="Commando">
+            <img src="./img/engineer.png" alt="Engineer" class="char-img" id="Engineer">
+            <img src="./img/huntress.png" alt="Huntress" class="char-img" id="Huntress">
+            <img src="./img/loader.png" alt="Loader" class="char-img" id="Loader">
+            <img src="./img/mercenary.png" alt="Mercenary" class="char-img" id="Mercenary">
+            <img src="./img/mult.png" alt="MUL-T" class="char-img" id="MULT">
+            <img src="./img/rex.png" alt="REX" class="char-img" id="REX">
         </div>
     </section>
 
@@ -370,7 +370,18 @@
             </div>
             <div class="col-build">
                 <h2>Build</h2>
-                <p>Attack Speed: </p>
+                <div class="row">
+                    <p id="survivor">Choose a Survivor</p>
+                </div>
+                <hr />
+                <div class="row" id="level-bar"><p class="level-display">Level: <span id="level">1</span></p><p class="level-down">-</p><p class="level-up">+</p></div>
+                <div class="row" id="health-bar"><p>Health: <span id="health">100</span></p></div>
+                <div class="row" id="shield-bar"><p>Shield: <span id="shield">0</span></p></div>
+                <p class="health-regen">Health Regen: <span class="normal">1/s</span> | <span class="out-of-combat" id="ooc-regen">1/s</span> | <span class="on-kill">1/s</span></p>
+                <p class="atkspd">Attack Speed: 100%</p>
+                <p class="move-speed">Move Speed: <span class="normal">100%</span> | <span class="out-of-combat">100%</span> | <span class="on-kill">100%</span></p>
+                <p class="chance-to-block">Chance to block: <span class="normal" id="block-chance">0%</span></p>
+                <p class="chance-to-crit">Chance to crit: <span class="normal" id="crit-chance">1%</span></p>
             </div>
         </div>
     </section>

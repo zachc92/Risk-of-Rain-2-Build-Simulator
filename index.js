@@ -1,5 +1,6 @@
 const navs = document.querySelectorAll('h3');
 const cards = document.querySelectorAll('.card-img img');
+const survivorList = document.querySelectorAll('.char-img');
 
 const commonItems = document.querySelector('.common-items');
 const uncommonItems = document.querySelector('.uncommon-items');
@@ -9,123 +10,190 @@ const lunarItems = document.querySelector('.lunar-items');
 const equipItems = document.querySelector('.equip-items');
 
 const buildColumn = document.querySelector('.col-build');
+const survivorChoice = document.querySelector('#survivor');
+
+const atkSpd = document.querySelector('.atkspd');
+const oocRegen = document.querySelector('#ooc-regen');
+const blockChance = document.querySelector('#block-chance');
+const critChance = document.querySelector('#crit-chance');
+const health = document.querySelector('#health');
+const shield = document.querySelector('#shield');
+
+const shieldBar = document.querySelector('#shield-bar');
+
+const survivors = {
+    Acrid: {
+        level: 1,
+        health: 160,
+        healthLevel: 48,
+        regen: 2.5,
+        regenLevel: 0.5
+    },
+    Artificer: {
+        level: 1,
+        health: 110,
+        healthLevel: 33,
+        regen: 1,
+        regenLevel: 0.2
+    },
+    Captain: {
+        level: 1,
+        health: 110,
+        healthLevel: 33,
+        regen: 1,
+        regenLevel: 0.2
+    },
+    Commando: {
+        level: 1,
+        health: 110,
+        healthLevel: 33,
+        regen: 1,
+        regenLevel: 0.2
+    },
+    Engineer: {
+        level: 1,
+        health: 130,
+        healthLevel: 39,
+        regen: 1,
+        regenLevel: 0.2
+    },
+    Huntress: {
+        level: 1,
+        health: 90,
+        healthLevel: 27,
+        regen: 1,
+        regenLevel: 0.2
+    },
+    Loader: {
+        level: 1,
+        health: 160,
+        healthLevel: 48,
+        regen: 2.5,
+        regenLevel: 0.5
+    },
+    Mercenary: {
+        level: 1,
+        health: 110,
+        healthLevel: 33,
+        regen: 1,
+        regenLevel: 0.2
+    },
+    MULT: {
+        level: 1,
+        health: 200,
+        healthLevel: 60,
+        regen: 1,
+        regenLevel: 0.2
+    },
+    REX: {
+        level: 1,
+        health: 130,
+        healthLevel: 39,
+        regen: 1,
+        regenLevel: 0.2
+    }
+}
+
+let selectedSurvivor;
 
 const items = [
     {apr: {
-        name: "Armor Piercing Rounds",
         quantity: 0,
-        effect: "Deal an additional " + 20 + "% damage to bosses",
         multiplier: 20
     }},
     {bf: {
-        name: "Bustling Fungus",
         quantity: 0,
-        effect: ""
+        multiplier1: 2.25,
+        multiplier2: 1.5
     }},
     {bof: {
-        name: "Bundle of Fireworks",
         quantity: 0,
-        effect: ""
+        multiplier: 4
+    }},
+    {bum: {
+        quantity: 0,
+        multiplier: 4
     }},
     {cb: {
-        name: "Crowbar",
         quantity: 0,
-        effect: ""
+        multiplier: 50
     }},
     {cs: {
-        name: "Cautious Slug",
         quantity: 0,
-        effect: ""
+        multiplier: 3
     }},
     {fc: {
-        name: "Focus Crystal",
         quantity: 0,
-        effect: ""
+        multiplier: 15
     }},
     {fm: {
-        name: "Fresh Meat",
         quantity: 0,
-        effect: ""
+        multiplier: 3
     }},
     {nrg: {
-        name: "Energy Drink",
         quantity: 0,
-        effect: ""
+        multiplier: 20
     }},
     {gas: {
-        name: "Gasoline",
         quantity: 0,
-        effect: ""
+        multiplier1: 4,
+        multiplier2: 75
     }},
     {lmg: {
-        name: "Lens-Maker's Glasses",
         quantity: 0,
-        effect: ""
+        multiplier: 10
     }},
     {med: {
-        name: "Medkit",
         quantity: 0,
-        effect: ""
+        multiplier: 5
     }},
     {mt: {
-        name: "Monster Tooth",
         quantity: 0,
-        effect: ""
+        multiplier: 2
     }},
     {pgh: {
-        name: "Paul's Goat Hoof",
         quantity: 0,
-        effect: ""
+        multplier: 14
     }},
     {psg: {
-        name: "Personal Shield Generator",
         quantity: 0,
-        effect: ""
+        multiplier: .08
     }},
     {rap: {
-        name: "Repulsion Armor Plating",
         quantity: 0,
-        effect: ""
+        multiplier: 5
     }},
     {rk: {
-        name: "Rusted Key",
         quantity: 0,
-        effect: ""
+        multiplier: "unique"
     }},
     {sb: {
-        name: "Sticky Bomb",
         quantity: 0,
-        effect: ""
+        multiplier: 5
     }},
     {sg: {
-        name: "Stun Grenade",
         quantity: 0,
-        effect: ""
+        multiplier: 5
     }},
     {ss: {
-        name: "Soldier's Syringe",
         quantity: 0,
-        effect: ""
+        multiplier: 15
     }},
     {tb: {
-        name: "Topaz Brooch",
         quantity: 0,
-        effect: ""
+        multiplier: 15
     }},
     {tt: {
-        name: "Tougher Times",
         quantity: 0,
-        effect: ""
+        multiplier: 15
     }},
     {ttd: {
-        name: "Tri-tip Dagger",
         quantity: 0,
-        effect: ""
+        multiplier: 15
     }},
     {wb: {
-        name: "Warbanner",
         quantity: 0,
-        effect: ""
+        multiplier: 8
     }}  
 ];
 
@@ -134,7 +202,7 @@ const effects = {
     atkpwr: 100
 }
 
-const build = [];
+// const build = [];
 
 navRarity = (e) => {
     if(e.target.innerHTML === 'Common') {
@@ -209,16 +277,28 @@ navRarity = (e) => {
 };
 
 renderBuildList = () => {
-    console.log('rendering build list')
+    health.innerHTML = `${selectedSurvivor.health}`
+    atkSpd.innerHTML = `Attack Speed: ${100 + (items[19].ss.quantity * items[19].ss.multiplier)}%`;
+    oocRegen.innerHTML = `${selectedSurvivor.regen + (items[5].cs.quantity * items[5].cs.multiplier)}/s`;
+    blockChance.innerHTML =`${Math.round((1 - 1 / (0.15 * items[21].tt.quantity + 1)) * 100)}%`;
+    critChance.innerHTML =`${1 + (items[10].lmg.quantity * items[10].lmg.multiplier)}%`;
+    shield.innerHTML = `${Math.floor(selectedSurvivor.health * (items[14].psg.quantity * items[14].psg.multiplier))}`;
+
+    if(shield.innerHTML !== "0") {
+        shieldBar.style.backgroundColor = "#a0b9ef";
+    }
 }
 
 addToBuild = (e) => {
+    if(selectedSurvivor === undefined) {
+        alert('Please select a survivor first.');
+        return;
+    }
     const added = e.target.parentElement.parentElement.id;
     for(i = 0; i < items.length; i++) {
         if(items[i][added] !== undefined) {
         items[i][added].quantity++;
-        
-        return;
+        i = items.length;
         }
     }
     renderBuildList();
@@ -234,6 +314,13 @@ buildBarState = () => {
     }
 }
 
+selectCharacter = (e) => {
+    selectedSurvivor = survivors[e.target.id];
+    survivorChoice.innerHTML = `${e.target.id}`;
+    renderBuildList();
+}
+
 navs.forEach(el => { el.addEventListener('click', navRarity) });
 cards.forEach(el => { el.addEventListener('click', addToBuild )});
+survivorList.forEach(el => { el.addEventListener('click', selectCharacter) });
 window.addEventListener('scroll', buildBarState);
