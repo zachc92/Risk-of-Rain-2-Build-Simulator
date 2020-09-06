@@ -18,6 +18,10 @@ const blockChance = document.querySelector('#block-chance');
 const critChance = document.querySelector('#crit-chance');
 const health = document.querySelector('#health');
 const shield = document.querySelector('#shield');
+const level = document.querySelector('#level');
+
+const levelUp = document.querySelector('#level-up');
+const levelDown = document.querySelector('#level-down');
 
 const shieldBar = document.querySelector('#shield-bar');
 
@@ -202,6 +206,8 @@ const effects = {
     atkpwr: 100
 }
 
+let healthStorage = 0;
+
 // const build = [];
 
 navRarity = (e) => {
@@ -277,12 +283,17 @@ navRarity = (e) => {
 };
 
 renderBuildList = () => {
-    health.innerHTML = `${selectedSurvivor.health}`
+    level.innerHTML = `${selectedSurvivor.level}`;
+    health.innerHTML = `${(selectedSurvivor.health) + ((selectedSurvivor.level - 1) * selectedSurvivor.healthLevel)}`
     atkSpd.innerHTML = `Attack Speed: ${100 + (items[19].ss.quantity * items[19].ss.multiplier)}%`;
     oocRegen.innerHTML = `${selectedSurvivor.regen + (items[5].cs.quantity * items[5].cs.multiplier)}/s`;
     blockChance.innerHTML =`${Math.round((1 - 1 / (0.15 * items[21].tt.quantity + 1)) * 100)}%`;
     critChance.innerHTML =`${1 + (items[10].lmg.quantity * items[10].lmg.multiplier)}%`;
-    shield.innerHTML = `${Math.floor(selectedSurvivor.health * (items[14].psg.quantity * items[14].psg.multiplier))}`;
+
+    healthStorage = parseInt(health.innerHTML);
+
+    shield.innerHTML = `${Math.floor(healthStorage * (items[14].psg.quantity * items[14].psg.multiplier))}`;
+
 
     if(shield.innerHTML !== "0") {
         shieldBar.style.backgroundColor = "#a0b9ef";
@@ -320,7 +331,38 @@ selectCharacter = (e) => {
     renderBuildList();
 }
 
+levelSurvivor = (e) => {
+    if(e.target.id === "level-up") {
+        selectedSurvivor.level++;
+        renderBuildList();
+    } else if(e.target.id === "level-down") {
+        if(selectedSurvivor.level >= 2) {
+            selectedSurvivor.level--;
+            renderBuildList();
+        } else {
+            return;
+        }
+    }
+}
+
+buttonClicked = (e) => {
+    e.target.style.backgroundColor = "#a0b9ef";
+}
+
+buttonUnclicked = (e) => {
+    e.target.style.backgroundColor = ""
+}
+
 navs.forEach(el => { el.addEventListener('click', navRarity) });
 cards.forEach(el => { el.addEventListener('click', addToBuild )});
 survivorList.forEach(el => { el.addEventListener('click', selectCharacter) });
+
 window.addEventListener('scroll', buildBarState);
+levelUp.addEventListener('click', levelSurvivor);
+levelDown.addEventListener('click', levelSurvivor);
+
+levelUp.addEventListener('mousedown', buttonClicked);
+levelUp.addEventListener('mouseup', buttonUnclicked);
+
+levelDown.addEventListener('mousedown', buttonClicked);
+levelDown.addEventListener('mouseup', buttonUnclicked);
