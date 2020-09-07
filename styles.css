@@ -171,6 +171,12 @@ h3:hover {
     height: 100%;
 }
 
+.item-quantity {
+    position: relative;
+    top: -20px;
+    padding-left: 80px;
+}
+
 .card-img {
     height: 30%;
     padding-top: 10px;

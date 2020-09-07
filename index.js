@@ -14,11 +14,14 @@ const survivorChoice = document.querySelector('#survivor');
 
 const atkSpd = document.querySelector('.atkspd');
 const oocRegen = document.querySelector('#ooc-regen');
+const baseMs = document.querySelector('#base-ms');
 const blockChance = document.querySelector('#block-chance');
 const critChance = document.querySelector('#crit-chance');
 const health = document.querySelector('#health');
 const shield = document.querySelector('#shield');
 const level = document.querySelector('#level');
+const barrier = document.querySelector('#barrier');
+const mitigation = document.querySelector('#mitigation');
 
 const levelUp = document.querySelector('#level-up');
 const levelDown = document.querySelector('#level-down');
@@ -157,7 +160,7 @@ const items = [
     }},
     {pgh: {
         quantity: 0,
-        multplier: 14
+        multiplier: 14
     }},
     {psg: {
         quantity: 0,
@@ -287,8 +290,11 @@ renderBuildList = () => {
     health.innerHTML = `${(selectedSurvivor.health) + ((selectedSurvivor.level - 1) * selectedSurvivor.healthLevel)}`
     atkSpd.innerHTML = `Attack Speed: ${100 + (items[19].ss.quantity * items[19].ss.multiplier)}%`;
     oocRegen.innerHTML = `${selectedSurvivor.regen + (items[5].cs.quantity * items[5].cs.multiplier)}/s`;
+    baseMs.innerHTML = `${ 100 + (items[13].pgh.quantity * items[13].pgh.multiplier)}%`;
     blockChance.innerHTML =`${Math.round((1 - 1 / (0.15 * items[21].tt.quantity + 1)) * 100)}%`;
     critChance.innerHTML =`${1 + (items[10].lmg.quantity * items[10].lmg.multiplier)}%`;
+    barrier.innerHTML = `${items[20].tb.quantity * items[20].tb.multiplier}`;
+    mitigation.innerHTML = `${items[15].rap.quantity * items[15].rap.multiplier}`;
 
     healthStorage = parseInt(health.innerHTML);
 
@@ -309,6 +315,7 @@ addToBuild = (e) => {
     for(i = 0; i < items.length; i++) {
         if(items[i][added] !== undefined) {
         items[i][added].quantity++;
+        e.target.nextSibling.nextSibling.innerHTML = `x${items[i][added].quantity}`;
         i = items.length;
         }
     }
