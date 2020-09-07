@@ -171,6 +171,10 @@ h3:hover {
     height: 100%;
 }
 
+.uncommon-items .item-card .card-img img {
+    border: solid 1px #7ecb3f;
+}
+
 .item-quantity {
     position: relative;
     top: -20px;
