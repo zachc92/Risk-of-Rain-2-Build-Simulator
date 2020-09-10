@@ -104,7 +104,7 @@ const survivors = {
 let selectedSurvivor;
 
 const items = [
-    {apr: {
+    [{apr: {
         quantity: 0,
         multiplier: 20
     }},
@@ -201,7 +201,10 @@ const items = [
     {wb: {
         quantity: 0,
         multiplier: 8
-    }}  
+    }}],
+    [
+        {}
+    ]
 ];
 
 const effects = {
@@ -288,17 +291,17 @@ navRarity = (e) => {
 renderBuildList = () => {
     level.innerHTML = `${selectedSurvivor.level}`;
     health.innerHTML = `${(selectedSurvivor.health) + ((selectedSurvivor.level - 1) * selectedSurvivor.healthLevel)}`
-    atkSpd.innerHTML = `Attack Speed: ${100 + (items[19].ss.quantity * items[19].ss.multiplier)}%`;
-    oocRegen.innerHTML = `${selectedSurvivor.regen + (items[5].cs.quantity * items[5].cs.multiplier)}/s`;
-    baseMs.innerHTML = `${ 100 + (items[13].pgh.quantity * items[13].pgh.multiplier)}%`;
-    blockChance.innerHTML =`${Math.round((1 - 1 / (0.15 * items[21].tt.quantity + 1)) * 100)}%`;
-    critChance.innerHTML =`${1 + (items[10].lmg.quantity * items[10].lmg.multiplier)}%`;
-    barrier.innerHTML = `${items[20].tb.quantity * items[20].tb.multiplier}`;
-    mitigation.innerHTML = `${items[15].rap.quantity * items[15].rap.multiplier}`;
+    atkSpd.innerHTML = `Attack Speed: ${100 + (items[0][19].ss.quantity * items[0][19].ss.multiplier)}%`;
+    oocRegen.innerHTML = `${selectedSurvivor.regen + (items[0][5].cs.quantity * items[0][5].cs.multiplier)}/s`;
+    baseMs.innerHTML = `${ 100 + (items[0][13].pgh.quantity * items[0][13].pgh.multiplier)}%`;
+    blockChance.innerHTML =`${Math.round((1 - 1 / (0.15 * items[0][21].tt.quantity + 1)) * 100)}%`;
+    critChance.innerHTML =`${1 + (items[0][10].lmg.quantity * items[0][10].lmg.multiplier)}%`;
+    barrier.innerHTML = `${items[0][20].tb.quantity * items[0][20].tb.multiplier}`;
+    mitigation.innerHTML = `${items[0][15].rap.quantity * items[0][15].rap.multiplier}`;
 
     healthStorage = parseInt(health.innerHTML);
 
-    shield.innerHTML = `${Math.floor(healthStorage * (items[14].psg.quantity * items[14].psg.multiplier))}`;
+    shield.innerHTML = `${Math.floor(healthStorage * (items[0][14].psg.quantity * items[0][14].psg.multiplier))}`;
 
 
     if(shield.innerHTML !== "0") {
@@ -311,12 +314,25 @@ addToBuild = (e) => {
         alert('Please select a survivor first.');
         return;
     }
+    let rarity;
+    switch(e.target.parentElement.parentElement.parentElement.id) {
+        case "common":
+            rarity = 0;
+            break;
+        case "uncommon":
+            rarity= 1;
+            break;
+    }
+
+    console.log(rarity);
+
     const added = e.target.parentElement.parentElement.id;
-    for(i = 0; i < items.length; i++) {
-        if(items[i][added] !== undefined) {
-        items[i][added].quantity++;
-        e.target.nextSibling.nextSibling.innerHTML = `x${items[i][added].quantity}`;
-        i = items.length;
+    for(i = 0; i < items[rarity].length; i++) {
+        if(items[rarity][i][added] !== undefined) {
+        items[rarity][i][added].quantity++;
+        e.target.nextSibling.nextSibling.innerHTML = `x${items[rarity][i][added].quantity}`;
+        i = items[rarity].length;
+        console.log('code ran');
         }
     }
     renderBuildList();
