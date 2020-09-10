@@ -97,11 +97,11 @@ h3:hover {
 }
 
 .out-of-combat {
-    color: lightgreen;
+    color: #63b32e;
 }
 
 .on-kill {
-    color: red;
+    color: #c5543b;
 }
 
 /* ------------------------ */
@@ -273,7 +273,7 @@ h3:hover {
 }
 
 #health-bar {
-    background-color: lightgreen !important;
+    background-color: #63b32e;
 }
 
 #shield-bar {

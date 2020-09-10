@@ -13,8 +13,13 @@ const buildColumn = document.querySelector('.col-build');
 const survivorChoice = document.querySelector('#survivor');
 
 const atkSpd = document.querySelector('.atkspd');
+
+const baseRegen = document.querySelector('#base-regen');
 const oocRegen = document.querySelector('#ooc-regen');
+
 const baseMs = document.querySelector('#base-ms');
+const oocMs = document.querySelector('#ooc-ms');
+
 const blockChance = document.querySelector('#block-chance');
 const critChance = document.querySelector('#crit-chance');
 const health = document.querySelector('#health');
@@ -27,6 +32,7 @@ const levelUp = document.querySelector('#level-up');
 const levelDown = document.querySelector('#level-down');
 
 const shieldBar = document.querySelector('#shield-bar');
+const healthBar = document.querySelector('#health-bar');
 
 const survivors = {
     Acrid: {
@@ -202,8 +208,111 @@ const items = [
         quantity: 0,
         multiplier: 8
     }}],
-    [
-        {}
+    [{atg: {
+        quantity: 0,
+        multiplier: 300
+    }},
+    {ban: {
+        quantity: 0,
+        multiplier: 10
+    }},
+    {ber: {
+        quantity: 0,
+        multiplier: 4
+    }},
+    {chr: {
+        quantity: 0,
+        multiplier: 4
+    }},
+    {dm: {
+        quantity: 0,
+        multiplier: 7
+    }},
+    {fue: {
+        quantity: 0,
+        multiplier1: 1,
+        multiplier2: 15
+    }},
+    {gho: {
+        quantity: 0,
+        multiplier: 4
+    }},
+    {har: {
+        quantity: 0,
+        multiplier: 4
+    }},
+    {hop: {
+        quantity: 0,
+        multiplier: 1
+    }},
+    {inf: {
+        quantity: 0,
+        multiplier1: 1,
+        multiplier2: 100
+    }},
+    {kja: {
+        quantity: 0,
+        multiplier: 300
+    }},
+    {lee: {
+        quantity: 0,
+        multiplier: 1
+    }},
+    {lep: {
+        quantity: 0,
+        multiplier: 1
+    }},
+    {old: {
+        quantity: 0,
+        multiplier: 13
+    }},
+    {ows: {
+        quantity: 0,
+        multiplier: 1.5
+    }},
+    {pri: {
+        quantity: 0,
+        multiplier: 24
+    }},
+    {raz: {
+        quantity: 0,
+        multiplier: 10
+    }},
+    {red: {
+        quantity: 0,
+        multiplier: 30
+    }},
+    {ros: {
+        quantity: 0,
+        multiplier: 30
+    }},
+    {run: {
+        quantity: 0,
+        multiplier1: 3,
+        multiplier2: 250
+    }},
+    {squ: {
+        quantity: 0,
+        multiplier: 100
+    }},
+    {uku: {
+        quantity: 0,
+        multiplier1: 2,
+        multiplier2: 2
+    }},
+    {war: {
+        quantity: 0,
+        multiplier: 4
+    }},
+    {wax: {
+        quantity: 0,
+        multiplier: 10
+    }},
+    {wow: {
+        quantity: 0,
+        multiplier1: 2.4,
+        multiplier2: 280
+    }}
     ]
 ];
 
@@ -290,10 +399,17 @@ navRarity = (e) => {
 
 renderBuildList = () => {
     level.innerHTML = `${selectedSurvivor.level}`;
-    health.innerHTML = `${(selectedSurvivor.health) + ((selectedSurvivor.level - 1) * selectedSurvivor.healthLevel)}`
+    health.innerHTML = `${(selectedSurvivor.health) + ((selectedSurvivor.level - 1) * selectedSurvivor.healthLevel) + (items[1][9].inf.quantity * items[1][9].inf.multiplier2)}`
     atkSpd.innerHTML = `Attack Speed: ${100 + (items[0][19].ss.quantity * items[0][19].ss.multiplier)}%`;
-    oocRegen.innerHTML = `${selectedSurvivor.regen + (items[0][5].cs.quantity * items[0][5].cs.multiplier)}/s`;
+
+    baseRegen.innerHTML = `${selectedSurvivor.regen + (selectedSurvivor.regenLevel * (selectedSurvivor.level - 1))}/s`;
+    oocRegen.innerHTML = `${selectedSurvivor.regen + (selectedSurvivor.regenLevel * (selectedSurvivor.level - 1)) + (items[0][5].cs.quantity * items[0][5].cs.multiplier)}/s`;
+    // on kill regen
+
     baseMs.innerHTML = `${ 100 + (items[0][13].pgh.quantity * items[0][13].pgh.multiplier)}%`;
+    oocMs.innerHTML = `${ 100 + (items[1][17].red.quantity * items[1][17].red.multiplier) + (items[0][13].pgh.quantity * items[0][13].pgh.multiplier)}%`;
+    // on kill movement speed
+
     blockChance.innerHTML =`${Math.round((1 - 1 / (0.15 * items[0][21].tt.quantity + 1)) * 100)}%`;
     critChance.innerHTML =`${1 + (items[0][10].lmg.quantity * items[0][10].lmg.multiplier)}%`;
     barrier.innerHTML = `${items[0][20].tb.quantity * items[0][20].tb.multiplier}`;
@@ -305,7 +421,11 @@ renderBuildList = () => {
 
 
     if(shield.innerHTML !== "0") {
-        shieldBar.style.backgroundColor = "#a0b9ef";
+        shieldBar.style.backgroundColor = "#4f65b1";
+    }
+
+    if(items[1][9].inf.quantity > 0){
+        healthBar.style.backgroundColor = "#b13f25";
     }
 }
 
@@ -320,11 +440,22 @@ addToBuild = (e) => {
             rarity = 0;
             break;
         case "uncommon":
-            rarity= 1;
+            rarity = 1;
+            break;
+        case "legendary":
+            rarity = 2;
+            break;
+        case "boss":
+            rarity = 3;
+            break;
+        case "lunar":
+            rarity = 4;
+            break;
+        case "equip":
+            rarity = 5;
             break;
     }
 
-    console.log(rarity);
 
     const added = e.target.parentElement.parentElement.id;
     for(i = 0; i < items[rarity].length; i++) {
