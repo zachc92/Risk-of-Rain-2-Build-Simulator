@@ -16,12 +16,16 @@ const atkSpd = document.querySelector('.atkspd');
 
 const baseRegen = document.querySelector('#base-regen');
 const oocRegen = document.querySelector('#ooc-regen');
+const okRegen = document.querySelector('#ok-regen');
 
 const baseMs = document.querySelector('#base-ms');
 const oocMs = document.querySelector('#ooc-ms');
+const okMs = document.querySelector('#ok-ms');
 
 const blockChance = document.querySelector('#block-chance');
 const critChance = document.querySelector('#crit-chance');
+const stunChance = document.querySelector('#stun-chance');
+const bleedChance = document.querySelector('#bleed-chance');
 const health = document.querySelector('#health');
 const shield = document.querySelector('#shield');
 const level = document.querySelector('#level');
@@ -398,28 +402,51 @@ navRarity = (e) => {
 };
 
 renderBuildList = () => {
+    // non-stacking benefits
+    let harCrit = 0;
+    let priCrit = 0;
+
+    if(items[1][7].har.quantity > 0) {
+        harCrit = 5;
+    }
+
+    if(items[1][15].pri.quantity > 0) {
+        priCrit = 5;
+    }
+
+    // effects not dependent on proc coefficient
+
     level.innerHTML = `${selectedSurvivor.level}`;
     health.innerHTML = `${(selectedSurvivor.health) + ((selectedSurvivor.level - 1) * selectedSurvivor.healthLevel) + (items[1][9].inf.quantity * items[1][9].inf.multiplier2)}`
-    atkSpd.innerHTML = `Attack Speed: ${100 + (items[0][19].ss.quantity * items[0][19].ss.multiplier)}%`;
-
-    baseRegen.innerHTML = `${selectedSurvivor.regen + (selectedSurvivor.regenLevel * (selectedSurvivor.level - 1))}/s`;
-    oocRegen.innerHTML = `${selectedSurvivor.regen + (selectedSurvivor.regenLevel * (selectedSurvivor.level - 1)) + (items[0][5].cs.quantity * items[0][5].cs.multiplier)}/s`;
-    // on kill regen
-
-    baseMs.innerHTML = `${ 100 + (items[0][13].pgh.quantity * items[0][13].pgh.multiplier)}%`;
-    oocMs.innerHTML = `${ 100 + (items[1][17].red.quantity * items[1][17].red.multiplier) + (items[0][13].pgh.quantity * items[0][13].pgh.multiplier)}%`;
-    // on kill movement speed
-
-    blockChance.innerHTML =`${Math.round((1 - 1 / (0.15 * items[0][21].tt.quantity + 1)) * 100)}%`;
-    critChance.innerHTML =`${1 + (items[0][10].lmg.quantity * items[0][10].lmg.multiplier)}%`;
+    healthStorage = parseInt(health.innerHTML);shield.innerHTML = `${Math.floor(healthStorage * (items[0][14].psg.quantity * items[0][14].psg.multiplier))}`;
+    shield.innerHTML = `${Math.floor(healthStorage * (items[0][14].psg.quantity * items[0][14].psg.multiplier))}`;
     barrier.innerHTML = `${items[0][20].tb.quantity * items[0][20].tb.multiplier}`;
     mitigation.innerHTML = `${items[0][15].rap.quantity * items[0][15].rap.multiplier}`;
 
-    healthStorage = parseInt(health.innerHTML);
+    atkSpd.innerHTML = `Attack Speed: ${100 + (items[0][19].ss.quantity * items[0][19].ss.multiplier)}%`;
+    blockChance.innerHTML =`${Math.round((1 - 1 / (0.15 * items[0][21].tt.quantity + 1)) * 100)}%`;
 
-    shield.innerHTML = `${Math.floor(healthStorage * (items[0][14].psg.quantity * items[0][14].psg.multiplier))}`;
+    baseRegen.innerHTML = `${selectedSurvivor.regen + (selectedSurvivor.regenLevel * (selectedSurvivor.level - 1))}/s`;
+    oocRegen.innerHTML = `${selectedSurvivor.regen + (selectedSurvivor.regenLevel * (selectedSurvivor.level - 1)) + (items[0][5].cs.quantity * items[0][5].cs.multiplier)}/s`;
+    okRegen.innerHTML = `${selectedSurvivor.regen + (selectedSurvivor.regenLevel * (selectedSurvivor.level - 1))}/s`
 
+    baseMs.innerHTML = `${ 100 + (items[0][13].pgh.quantity * items[0][13].pgh.multiplier)}%`;
+    oocMs.innerHTML = `${ 100 + (items[1][17].red.quantity * items[1][17].red.multiplier) + (items[0][13].pgh.quantity * items[0][13].pgh.multiplier)}%`;
+    okMs.innerHTML = `${ 100 + (items[0][13].pgh.quantity * items[0][13].pgh.multiplier)}%`
 
+    // effects dependent on proc coefficient
+
+    critChance.innerHTML =`${1 + (items[0][10].lmg.quantity * items[0][10].lmg.multiplier) + harCrit + priCrit}%`;
+    stunChance.innerHTML = `${Math.round((1 - 1 / (0.05 * items[0][18].sg.quantity + 1)) * 100)}%`
+    bleedChance.innerHTML = `${items[0][22].ttd.quantity * items[0][22].ttd.multiplier}%`;
+    
+
+    
+
+    
+
+    // styling dependent on item quantity
+    
     if(shield.innerHTML !== "0") {
         shieldBar.style.backgroundColor = "#4f65b1";
     }
