@@ -146,12 +146,17 @@ h3:hover {
     text-align: center;
 }
 
+.legendary-items {
+    margin: 1% auto;
+    text-align: center;
+}
+
 .hidden {
     display: none !important;
 }
 
 .item-card {
-    height: 325px;
+    height: 365px;
     width: 20%;
     min-width: 250px;
     max-width: 250px;
@@ -172,7 +177,11 @@ h3:hover {
 }
 
 .uncommon-items .item-card .card-img img {
-    border: solid 1px #7ecb3f;
+    border: 2px solid #7ecb3f;
+}
+
+.legendary-items .item-card .card-img img {
+    border: 2px solid #f3715a;
 }
 
 .item-quantity {
@@ -215,6 +224,10 @@ h3:hover {
     width: 80%;
     margin: 10px auto;
     background-color: rgba(225,225,255,0) !important;
+}
+
+#res p {
+    font-size: 1.5vh;
 }
 
 /* ------------------------ */
