@@ -9,6 +9,15 @@ const secondaryAbilityChoice = document.querySelector('#secondaries');
 const utilityAbilityChoice = document.querySelector('#utilities');
 const specialAbilityChoice = document.querySelector('#specials');
 
+const primariesTooltip = document.querySelector('#primaries-tooltip');
+const secondariesTootip = document.querySelector('#secondaries-tooltip');
+const utilitiesTooltip = document.querySelector('#utilities-tooltip');
+const specialsTooltip = document.querySelector('#specials-tooltip');
+
+const primaryTooltipAbility = document.querySelector('#primary-tooltip-ability');
+const primaryTooltipDescription = document.querySelector('#primary-tooltip-description');
+const primaryTooltipCooldown = document.querySelector('#primary-tooltip-cooldown');
+
 // DOM elements for item column
 
 const commonItems = document.querySelector('.common-items');
@@ -60,17 +69,61 @@ const survivors = {
                              secondary: [{ name: "Neurotoxin", cooldown: 2, proc: 1, desc: "Poisonous. Spit toxic bile for 240% damage.", img: "./img/abilities/acrid/secondary1.png" }, { name: "Ravenous Bite", cooldown: 2, proc: 1, desc: "Poisonous. Regenerative. Bite an enemy for 310% damage. Deals up to 3x damage to low health enemies.", img: "./img/abilities/acrid/secondary2.png" }],
                              utility: [{ name: "Caustic Leap", cooldown: 6, proc: 1, desc: "Poisonous. Stunning. Leap in the air, dealing 320% damage. Leave acid that deals 25% damage.", img: "./img/abilities/acrid/utility1.png" }, { name: "Frenzied Leap", cooldown: 10, proc: 1, desc: "Stunning. Leap in the air, dealing 550% damage. Reduce the cooldown by 2s for every enemy hit.", img: "./img/abilities/acrid/utility2.png" }],
                              special: [{ name: "Epidemic", cooldown: 10, proc: 1, desc: "Poisonous. Release a deadly disease that deals 100% damage. The disease spreads to up to 20 targets.", img: "./img/abilities/acrid/special.png" }]
-                            } 
-            },
-    Artificer: { level: 1, health: 110, healthLevel: 33, regen: 1, regenLevel: 0.2 },
-    Captain: { level: 1, health: 110, healthLevel: 33, regen: 1, regenLevel: 0.2 },
-    Commando: { level: 1, health: 110, healthLevel: 33, regen: 1, regenLevel: 0.2 },
-    Engineer: { level: 1, health: 130, healthLevel: 39, regen: 1, regenLevel: 0.2 },
-    Huntress: { level: 1, health: 90, healthLevel: 27, regen: 1, regenLevel: 0.2 },
-    Loader: { level: 1, health: 160, healthLevel: 48, regen: 2.5, regenLevel: 0.5 },
-    Mercenary: { level: 1, health: 110, healthLevel: 33, regen: 1, regenLevel: 0.2 },
-    MULT: { level: 1, health: 200, healthLevel: 60, regen: 1, regenLevel: 0.2 },
-    REX: { level: 1, health: 130, healthLevel: 39, regen: 1, regenLevel: 0.2 }
+                } },
+    Artificer: { level: 1, health: 110, healthLevel: 33, regen: 1, regenLevel: 0.2, 
+                abilities: { primary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             secondary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             utility: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             special: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }]
+                } },
+    Captain: { level: 1, health: 110, healthLevel: 33, regen: 1, regenLevel: 0.2, 
+                abilities: { primary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             secondary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             utility: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             special: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }]
+                } },
+    Commando: { level: 1, health: 110, healthLevel: 33, regen: 1, regenLevel: 0.2, 
+                abilities: { primary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             secondary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             utility: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             special: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }]
+                } },
+    Engineer: { level: 1, health: 130, healthLevel: 39, regen: 1, regenLevel: 0.2, 
+                abilities: { primary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             secondary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             utility: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             special: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }]
+                } },
+    Huntress: { level: 1, health: 90, healthLevel: 27, regen: 1, regenLevel: 0.2, 
+                abilities: { primary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             secondary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             utility: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             special: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }]
+                } },
+    Loader: { level: 1, health: 160, healthLevel: 48, regen: 2.5, regenLevel: 0.5, 
+                abilities: { primary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             secondary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             utility: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             special: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }]
+                } },
+    Mercenary: { level: 1, health: 110, healthLevel: 33, regen: 1, regenLevel: 0.2, 
+                abilities: { primary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             secondary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             utility: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             special: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }]
+                } },
+    MULT: { level: 1, health: 200, healthLevel: 60, regen: 1, regenLevel: 0.2, 
+                abilities: { primary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             secondary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             utility: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             special: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }]
+                } },
+    REX: { level: 1, health: 130, healthLevel: 39, regen: 1, regenLevel: 0.2, 
+                abilities: { primary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             secondary: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             utility: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }],
+                             special: [{ name: "", cooldown: 0, proc: 1, desc: "", img: "" }]
+                } }
 }
 
 let selectedSurvivor;
@@ -161,8 +214,6 @@ const effects = {
 }
 
 let healthStorage = 0;
-
-// const build = [];
 
 navRarity = (e) => {
     if(e.target.innerHTML === 'Common') {
@@ -419,6 +470,16 @@ selectAbility = (e) => {
     }
 }
 
+showTooltip = (e) => {
+    // console.log(e.target.parentElement.id);
+
+    if(e.target.tagName === "IMG" && e.target.parentElement.id === "primaries") {
+        console.log(selectedSurvivor.abilities.primary[0]);
+        console.log(e.target.id);
+        
+    }
+}
+
 buttonClicked = (e) => {
     e.target.style.backgroundColor = "#a0b9ef";
 }
@@ -432,6 +493,7 @@ cards.forEach(el => { el.addEventListener('click', addToBuild )});
 survivorList.forEach(el => { el.addEventListener('click', selectCharacter) });
 
 abilitiesBox.addEventListener('click', selectAbility);
+abilitiesBox.addEventListener('mouseover', showTooltip);
 
 window.addEventListener('scroll', buildBarState);
 levelUp.addEventListener('click', levelSurvivor);

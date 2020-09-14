@@ -83,6 +83,22 @@ h3:hover {
     width: 50px;
 }
 
+#primaries-tooltip {
+    display: none;
+}
+
+#secondaries-tooltip {
+    display: none;
+}
+
+#utilities-tooltip {
+    display: none;
+}
+
+#specials-tooltip {
+    display: none;
+}
+
 /* ------------------------ */
 /* ----- build section ---- */
 /* ------------------------ */
