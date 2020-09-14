@@ -32,6 +32,8 @@ const secondaryAbility = document.querySelector('#secondary-ability');
 const utilityAbility = document.querySelector('#utility-ability');
 const specialAbility = document.querySelector('#special-ability');
 
+const cardButtons = document.querySelectorAll('.lower-quantity');
+
 // DOM elements for build column
 
 const buildColumn = document.querySelector('.col-build');
@@ -377,6 +379,48 @@ addToBuild = (e) => {
     renderBuildList();
 }
 
+lowerQuantity = (e) => {
+    console.log(e.target.parentElement.parentElement);
+    
+    let remove = e.target.parentElement.parentElement.id;
+    let rarity;
+    switch(e.target.parentElement.parentElement.parentElement.id) {
+        case "common":
+            rarity = 0;
+            break;
+        case "uncommon":
+            rarity = 1;
+            break;
+        case "legendary":
+            rarity = 2;
+            break;
+        case "boss":
+            rarity = 3;
+            break;
+        case "lunar":
+            rarity = 4;
+            break;
+        case "equip":
+            rarity = 5;
+            break;
+    }
+
+    for(i = 0; i < items[rarity].length; i++) {
+        if(items[rarity][i][remove] !== undefined) {
+            if(items[rarity][i][remove].quantity >= 1) {
+                items[rarity][i][remove].quantity--;
+                console.log(items[rarity][i][remove].quantity);
+            } else {
+                return;
+            }
+            console.log(e.target.previousSibling);
+            // e.target.nextSibling.nextSibling.innerHTML = `x${items[rarity][i][added].quantity}`;
+        } 
+        i = items[rarity].length;
+    }
+    
+}
+
 buildBarState = () => {
     if(window.scrollY >= 375) {
         buildColumn.style.top = 0;
@@ -390,6 +434,24 @@ buildBarState = () => {
 selectCharacter = (e) => {
     selectedSurvivor = survivors[e.target.id];
     survivorChoice.innerHTML = `${e.target.id}`;
+    if(primaries.innerHTML !== "") {
+        primaries.innerHTML = "";
+    };
+    if(secondaries.innerHTML !== "") {
+        secondaries.innerHTML = "";
+    };
+    if(utilities.innerHTML !== "") {
+        utilities.innerHTML = "";
+    };
+    if(specials.innerHTML !== "") {
+        specials.innerHTML = "";
+    };
+
+    primaryAbility.src = "";
+    secondaryAbility.src = "";
+    utilityAbility.src = "";
+    specialAbility.src = "";
+    
     
     selectedSurvivor.abilities.primary.forEach(el => { 
         let img = document.createElement('img');
@@ -444,6 +506,7 @@ selectAbility = (e) => {
             if(selectedSurvivor.abilities.primary[i].name === e.target.id) {
                 selectedAbilities.primary = selectedSurvivor.abilities.primary[i];
                 primaryAbility.src = selectedAbilities.primary.img;
+                primaryAbilityChoice.innerHTML = "";
             }
         }
     } else if(e.target.parentElement.id === "secondaries") {
@@ -451,6 +514,7 @@ selectAbility = (e) => {
             if(selectedSurvivor.abilities.secondary[i].name === e.target.id) {
                 selectedAbilities.secondary = selectedSurvivor.abilities.secondary[i];
                 secondaryAbility.src = selectedAbilities.secondary.img;
+                e.target.parentElement.innerHTML = "";
             }
         }
     } else if(e.target.parentElement.id === "utilities") {
@@ -458,6 +522,7 @@ selectAbility = (e) => {
             if(selectedSurvivor.abilities.utility[i].name === e.target.id) {
                 selectedAbilities.utility = selectedSurvivor.abilities.utility[i];
                 utilityAbility.src = selectedAbilities.utility.img;
+                e.target.parentElement.innerHTML = "";
             }
         }
     } else if(e.target.parentElement.id === "specials") {
@@ -465,6 +530,7 @@ selectAbility = (e) => {
             if(selectedSurvivor.abilities.special[i].name === e.target.id) {
                 selectedAbilities.special = selectedSurvivor.abilities.special[i];
                 specialAbility.src = selectedAbilities.special.img;
+                e.target.parentElement.innerHTML = "";
             }
         }
     }
@@ -474,10 +540,17 @@ showTooltip = (e) => {
     // console.log(e.target.parentElement.id);
 
     if(e.target.tagName === "IMG" && e.target.parentElement.id === "primaries") {
-        console.log(selectedSurvivor.abilities.primary[0]);
-        console.log(e.target.id);
-        
+        // console.log(selectedSurvivor.abilities.primary[0]);
+        // console.log(e.target.id);
+        // primaryTooltipAbility.innerHTML = selectedSurvivor.abilities.primary[0].name;
+        // primariesTooltip.style.display = "block";
     }
+}
+
+hideTooltip = (e) => {
+    // if(e.target.tagName === "IMG" && e.target.parentElement.id === "primaries") {
+    //     primariesTooltip.style.display = "none";
+    // }
 }
 
 buttonClicked = (e) => {
@@ -491,9 +564,11 @@ buttonUnclicked = (e) => {
 navs.forEach(el => { el.addEventListener('click', navRarity) });
 cards.forEach(el => { el.addEventListener('click', addToBuild )});
 survivorList.forEach(el => { el.addEventListener('click', selectCharacter) });
+cardButtons.forEach(el => { el.addEventListener('click', lowerQuantity )});
 
 abilitiesBox.addEventListener('click', selectAbility);
 abilitiesBox.addEventListener('mouseover', showTooltip);
+abilitiesBox.addEventListener('mouseout', hideTooltip);
 
 window.addEventListener('scroll', buildBarState);
 levelUp.addEventListener('click', levelSurvivor);

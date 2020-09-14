@@ -18,6 +18,23 @@ h3:hover {
     cursor: pointer;
 }
 
+.lower-quantity {
+    color: red;
+    background-color: rgba(0,0,0,0);
+    border: 0px;
+    position: relative;
+    top: 20px;
+    right: 100px;
+}
+
+.lower-quantity:hover {
+    cursor: pointer;
+}
+
+.lower-quantity:active {
+    border: 0px;
+}
+
 /* ------------------------ */
 /* ----- header ----------- */
 /* ------------------------ */
@@ -73,6 +90,10 @@ h3:hover {
     background: rgba(225,225,255,0.2);
 }
 
+.abilities-box .row {
+    position: relative;
+}
+
 .abilities-box .row div {
     display: inline;
     margin: 2%;
@@ -85,6 +106,7 @@ h3:hover {
 
 #primaries-tooltip {
     display: none;
+    position: relative;
 }
 
 #secondaries-tooltip {
@@ -278,6 +300,10 @@ h3:hover {
     position: absolute;
     left: 75%;
     line-height: 2.0;
+}
+
+.col-build .row #survivor {
+    text-align: center;
 }
 
 .col-build h2 {
