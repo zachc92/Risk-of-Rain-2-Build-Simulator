@@ -33,6 +33,7 @@ const utilityAbility = document.querySelector('#utility-ability');
 const specialAbility = document.querySelector('#special-ability');
 
 const cardButtons = document.querySelectorAll('.lower-quantity');
+const itemQuantities = document.querySelectorAll('.item-quantity');
 
 // DOM elements for build column
 
@@ -373,15 +374,12 @@ addToBuild = (e) => {
         items[rarity][i][added].quantity++;
         e.target.nextSibling.nextSibling.innerHTML = `x${items[rarity][i][added].quantity}`;
         i = items[rarity].length;
-        console.log('code ran');
         }
     }
     renderBuildList();
 }
 
 lowerQuantity = (e) => {
-    console.log(e.target.parentElement.parentElement);
-    
     let remove = e.target.parentElement.parentElement.id;
     let rarity;
     switch(e.target.parentElement.parentElement.parentElement.id) {
@@ -405,19 +403,30 @@ lowerQuantity = (e) => {
             break;
     }
 
-    for(i = 0; i < items[rarity].length; i++) {
-        if(items[rarity][i][remove] !== undefined) {
-            if(items[rarity][i][remove].quantity >= 1) {
-                items[rarity][i][remove].quantity--;
-                console.log(items[rarity][i][remove].quantity);
-            } else {
-                return;
-            }
-            console.log(e.target.previousSibling);
-            // e.target.nextSibling.nextSibling.innerHTML = `x${items[rarity][i][added].quantity}`;
-        } 
-        i = items[rarity].length;
-    }
+    // console.log(e.target.parentElement.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling);
+
+    // itemQuantities.forEach( el => {
+    //     // console.log(el.parentElement.parentElement.id);
+    //     let iqReduce = el.parentElement.parentElement.id;
+    //     console.log(iqReduce);
+    //     for(i = 0; i < items[rarity].length; i++) {
+    //         if(items[rarity][i][iqReduce] !== undefined) {
+    //             console.log(items[rarity][i]);
+    //         } 
+    //     }
+        
+    // })
+
+    // for(i = 0; i < items[rarity].length; i++) {
+    //     if(items[rarity][i][remove] !== undefined) {
+    //         if(items[rarity][i][remove].quantity >= 1) {
+    //             items[rarity][i][remove].quantity--;
+    //         } else {
+    //             return;
+    //         }
+    //     } 
+    // }
+    // i = items[rarity].length;
     
 }
 
